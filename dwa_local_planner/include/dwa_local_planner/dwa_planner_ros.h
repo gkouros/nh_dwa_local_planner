@@ -51,19 +51,20 @@
 
 #include <costmap_2d/costmap_2d_ros.h>
 #include <nav_core/base_local_planner.h>
-#include <base_local_planner/latched_stop_rotate_controller.h>
 
 #include <base_local_planner/odometry_helper_ros.h>
 
 #include <dwa_local_planner/dwa_planner.h>
 
-namespace dwa_local_planner {
+namespace dwa_local_planner
+{
   /**
    * @class DWAPlannerROS
    * @brief ROS Wrapper for the DWAPlanner that adheres to the
    * BaseLocalPlanner interface and can be used as a plugin for move_base.
    */
-  class DWAPlannerROS : public nav_core::BaseLocalPlanner {
+  class DWAPlannerROS : public nav_core::BaseLocalPlanner
+  {
     public:
       /**
        * @brief  Constructor for DWAPlannerROS wrapper
@@ -99,7 +100,7 @@ namespace dwa_local_planner {
        * @param cmd_vel Will be filled with the velocity command to be passed to the robot base
        * @return True if a valid trajectory was found, false otherwise
        */
-      bool dwaComputeVelocityCommands(tf::Stamped<tf::Pose>& global_pose, geometry_msgs::Twist& cmd_vel);
+      bool dwaComputeVelocityCommands(geometry_msgs::Twist& cmd_vel);
 
       /**
        * @brief  Set the plan that the controller is following
@@ -144,16 +145,13 @@ namespace dwa_local_planner {
       dynamic_reconfigure::Server<DWAPlannerConfig> *dsrv_;
       dwa_local_planner::DWAPlannerConfig default_config_;
       bool setup_;
+
       tf::Stamped<tf::Pose> current_pose_;
 
-      base_local_planner::LatchedStopRotateController latchedStopRotateController_;
-
-
       bool initialized_;
-
 
       base_local_planner::OdometryHelperRos odom_helper_;
       std::string odom_topic_;
   };
-};
-#endif
+}  // namespace dwa_local_planner
+#endif  // DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
