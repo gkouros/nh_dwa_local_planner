@@ -2,7 +2,7 @@
 *
 * software license agreement (bsd license)
 *
-*  copyright (c) 2016, p.a.n.d.o.r.a. team.
+*  copyright (c) 2016, George Kouros.
 *  all rights reserved.
 *
 *  redistribution and use in source and binary forms, with or without
@@ -35,15 +35,15 @@
 * author:  George Kouros
 *********************************************************************/
 
-#ifndef FWS_COST_FUNCTION_H
-#define FWS_COST_FUNCTION_H
+#ifndef DWA_LOCAL_PLANNER_FWS_COST_FUNCTION_H
+#define DWA_LOCAL_PLANNER_FWS_COST_FUNCTION_H
 
 #include <base_local_planner/trajectory_cost_function.h>
 
-namespace base_local_planner
+namespace cost_functions
 {
 
-  class FWSCostFunction: public base_local_planner::TrajectoryCostFunction
+  class FWSCostFunction : public base_local_planner::TrajectoryCostFunction
   {
     public:
 
@@ -59,13 +59,15 @@ namespace base_local_planner
       /**
        * @brief Destructor
        */
-      ~FWSCostFunction();
+      ~FWSCostFunction()
+      {
+      }
 
       /**
        * @brief Punishes inadmissible trajectories based on FWS constraints
        * @param traj: The trajectory to be evaluated
        */
-      double scoreTrajectory(Trajectory& traj);
+      double scoreTrajectory(base_local_planner::Trajectory& traj);
 
       /**
        * @brief Used to update context values (not used, just returns true)
@@ -90,6 +92,6 @@ namespace base_local_planner
       double b_max_;
   };
 
-}  // namespace base_local_planner
+}  // namespace dwa_local_planner
 
-#endif  // FWS_COST_FUNCTION_H
+#endif  // DWA_LOCAL_PLANNER_FWS_COST_FUNCTION_H

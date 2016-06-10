@@ -2,7 +2,7 @@
 *
 * software license agreement (bsd license)
 *
-*  copyright (c) 2016, p.a.n.d.o.r.a. team.
+*  copyright (c) 2016, George Kouros team.
 *  all rights reserved.
 *
 *  redistribution and use in source and binary forms, with or without
@@ -36,24 +36,24 @@
 *********************************************************************/
 
 #include "dwa_local_planner/fws_cost_function.h"
-
 #include <math.h>
+#include <ros/ros.h>
 
-namespace base_local_planner
+namespace cost_functions
 {
-  double FWSCostFunction::scoreTrajectory(Trajectory& traj)
+  double FWSCostFunction::scoreTrajectory(base_local_planner::Trajectory& traj)
   {
-    if (fabs(traj.yv_) == 0 && fabs(traj.xv_) < fabs(traj.thetav_ * r_min_))
+    if ((fabs(traj.xv_) < 1e-2)
+      || fabs(traj.xv_ * traj.yv_ * traj.thetav_) > 0.0
+      || fabs(traj.xv_ / traj.thetav_) < r_min_
+      || fabs(traj.yv_ / traj.xv_) > tan(b_max_))
     {
       return -1;
     }
-    else if (
-      fabs(traj.thetav_) == 0 && fabs(traj.yv_) < fabs(tan(b_max_) * traj.xv_))
+    else
     {
-      return -1;
+      return 0;
     }
-
-    return 0;
   }
 
 }  // namespace dwa_local_planner

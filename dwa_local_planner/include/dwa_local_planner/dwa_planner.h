@@ -58,20 +58,23 @@
 #include <base_local_planner/oscillation_cost_function.h>
 #include <base_local_planner/map_grid_cost_function.h>
 #include <base_local_planner/obstacle_cost_function.h>
+#include <dwa_local_planner/fws_cost_function.h>
 #include <base_local_planner/simple_scored_sampling_planner.h>
 
 #include <nav_msgs/Path.h>
 
-namespace dwa_local_planner {
+namespace dwa_local_planner
+{
   /**
    * @class DWAPlanner
    * @brief A class implementing a local planner using the Dynamic Window Approach
    */
-  class DWAPlanner {
+  class DWAPlanner
+  {
     public:
       /**
        * @brief  Constructor for the planner
-       * @param name The name of the planner 
+       * @param name The name of the planner
        * @param costmap_ros A pointer to the costmap instance the planner should use
        * @param global_frame the frame id of the tf frame to use
        */
@@ -101,8 +104,8 @@ namespace dwa_local_planner {
 
       /**
        * @brief Given the current position and velocity of the robot, find the best trajectory to exectue
-       * @param global_pose The current position of the robot 
-       * @param global_vel The current velocity of the robot 
+       * @param global_pose The current position of the robot
+       * @param global_vel The current velocity of the robot
        * @param drive_velocities The velocities to send to the robot base
        * @return The highest scoring trajectory. A cost >= 0 means the trajectory is legal to execute.
        */
@@ -175,8 +178,9 @@ namespace dwa_local_planner {
       base_local_planner::MapGridCostFunction goal_costs_;
       base_local_planner::MapGridCostFunction goal_front_costs_;
       base_local_planner::MapGridCostFunction alignment_costs_;
+      cost_functions::FWSCostFunction fws_costs_;
 
       base_local_planner::SimpleScoredSamplingPlanner scored_sampling_planner_;
   };
-};
+}
 #endif

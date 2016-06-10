@@ -83,6 +83,9 @@ namespace dwa_local_planner {
     // obstacle costs can vary due to scaling footprint feature
     obstacle_costs_.setParams(config.max_trans_vel, config.max_scaling_factor, config.scaling_speed);
 
+    fws_costs_.setRMin(config.min_turning_radius);
+    fws_costs_.setBMax(config.max_diagonal_motion_angle);
+
     int vx_samp, vy_samp, vth_samp;
     vx_samp = config.vx_samples;
     vy_samp = config.vy_samples;
@@ -119,7 +122,8 @@ namespace dwa_local_planner {
       path_costs_(planner_util->getCostmap()),
       goal_costs_(planner_util->getCostmap(), 0.0, 0.0, true),
       goal_front_costs_(planner_util->getCostmap(), 0.0, 0.0, true),
-      alignment_costs_(planner_util->getCostmap())
+      alignment_costs_(planner_util->getCostmap()),
+      fws_costs_(0.0, 0.0)
   {
     ros::NodeHandle private_nh("~/" + name);
 
@@ -171,6 +175,7 @@ namespace dwa_local_planner {
     critics.push_back(&alignment_costs_); // prefers trajectories that keep the robot nose on nose path
     critics.push_back(&path_costs_); // prefers trajectories on global path
     critics.push_back(&goal_costs_); // prefers trajectories that go towards (local) goal, based on wave propagation
+    critics.push_back(&fws_costs_);  // reject costs surpassing min turning radius and max diagonal motion angle
 
     // trajectory generators
     std::vector<base_local_planner::TrajectorySampleGenerator*> generator_list;
