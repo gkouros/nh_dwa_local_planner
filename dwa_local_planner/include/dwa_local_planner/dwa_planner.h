@@ -157,6 +157,7 @@ namespace dwa_local_planner
       base_local_planner::Trajectory result_traj_;
 
       double forward_point_distance_;
+      double sideways_point_distance_;
 
       std::vector<geometry_msgs::PoseStamped> global_plan_;
 

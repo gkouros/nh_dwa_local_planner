@@ -77,8 +77,11 @@ namespace dwa_local_planner {
     stop_time_buffer_ = config.stop_time_buffer;
     oscillation_costs_.setOscillationResetDist(config.oscillation_reset_dist, config.oscillation_reset_angle);
     forward_point_distance_ = config.forward_point_distance;
+    sideways_point_distance_ = config.sideways_point_distance;
     goal_front_costs_.setXShift(forward_point_distance_);
+    goal_front_costs_.setYShift(sideways_point_distance_);
     alignment_costs_.setXShift(forward_point_distance_);
+    alignment_costs_.setYShift(sideways_point_distance_);
 
     // obstacle costs can vary due to scaling footprint feature
     obstacle_costs_.setParams(config.max_trans_vel, config.max_scaling_factor, config.scaling_speed);
@@ -169,13 +172,13 @@ namespace dwa_local_planner {
     // set up all the cost functions that will be applied in order
     // (any function returning negative values will abort scoring, so the order can improve performance)
     std::vector<base_local_planner::TrajectoryCostFunction*> critics;
+    critics.push_back(&fws_costs_);  // reject costs surpassing min turning radius and max diagonal motion angle
     critics.push_back(&oscillation_costs_); // discards oscillating motions (assisgns cost -1)
     critics.push_back(&obstacle_costs_); // discards trajectories that move into obstacles
     critics.push_back(&goal_front_costs_); // prefers trajectories that make the nose go towards (local) nose goal
     critics.push_back(&alignment_costs_); // prefers trajectories that keep the robot nose on nose path
     critics.push_back(&path_costs_); // prefers trajectories on global path
     critics.push_back(&goal_costs_); // prefers trajectories that go towards (local) goal, based on wave propagation
-    critics.push_back(&fws_costs_);  // reject costs surpassing min turning radius and max diagonal motion angle
 
     // trajectory generators
     std::vector<base_local_planner::TrajectorySampleGenerator*> generator_list;
