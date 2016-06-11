@@ -34,6 +34,11 @@
 *
 * Author: Eitan Marder-Eppstein
 *********************************************************************/
+
+/*
+ * Modified by George Kouros
+ */
+
 #include <dwa_local_planner/dwa_planner.h>
 #include <base_local_planner/goal_functions.h>
 #include <base_local_planner/map_grid_cost_point.h>
@@ -48,7 +53,8 @@
 
 #include <pcl_conversions/pcl_conversions.h>
 
-namespace dwa_local_planner {
+namespace dwa_local_planner
+{
   void DWAPlanner::reconfigure(DWAPlannerConfig &config)
   {
 
@@ -71,6 +77,8 @@ namespace dwa_local_planner {
     goal_costs_.setScale(resolution * gdist_scale_ * 0.5);
     goal_front_costs_.setScale(resolution * gdist_scale_ * 0.5);
 
+    // goal_orientation_costs_.setScale(resolution * 1 * 0.5);
+
     occdist_scale_ = config.occdist_scale;
     obstacle_costs_.setScale(resolution * occdist_scale_);
 
@@ -88,6 +96,10 @@ namespace dwa_local_planner {
 
     fws_costs_.setRMin(config.min_turning_radius);
     fws_costs_.setBMax(config.max_diagonal_motion_angle);
+
+    orientation_costs_.setDistanceScale(config.distance_scale);
+    orientation_costs_.setOrientationScale(config.orientation_scale);
+    orientation_costs_.setActivationFactor(config.activation_factor);
 
     int vx_samp, vy_samp, vth_samp;
     vx_samp = config.vx_samples;
@@ -126,7 +138,8 @@ namespace dwa_local_planner {
       goal_costs_(planner_util->getCostmap(), 0.0, 0.0, true),
       goal_front_costs_(planner_util->getCostmap(), 0.0, 0.0, true),
       alignment_costs_(planner_util->getCostmap()),
-      fws_costs_(0.0, 0.0)
+      fws_costs_(0.0, 0.0),
+      orientation_costs_(1.0, 1.0, 0.0)
   {
     ros::NodeHandle private_nh("~/" + name);
 
@@ -179,6 +192,7 @@ namespace dwa_local_planner {
     critics.push_back(&alignment_costs_); // prefers trajectories that keep the robot nose on nose path
     critics.push_back(&path_costs_); // prefers trajectories on global path
     critics.push_back(&goal_costs_); // prefers trajectories that go towards (local) goal, based on wave propagation
+    critics.push_back(&orientation_costs_); // prefer trajectories that close the gap in orientation, when close to goal
 
     // trajectory generators
     std::vector<base_local_planner::TrajectorySampleGenerator*> generator_list;
@@ -256,6 +270,9 @@ namespace dwa_local_planner {
 
     // costs for not going towards the local goal as much as possible
     goal_costs_.setTargetPoses(global_plan_);
+
+    // costs for not attempting to reach goal orientation
+    orientation_costs_.setTargetPoses(global_plan_.back());
 
     // alignment costs
     geometry_msgs::PoseStamped goal_pose = global_plan_.back();

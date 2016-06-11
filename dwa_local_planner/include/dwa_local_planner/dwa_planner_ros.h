@@ -34,6 +34,11 @@
 *
 * Author: Eitan Marder-Eppstein
 *********************************************************************/
+
+/*
+ * Modified by George Kouros
+ */
+
 #ifndef DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
 #define DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
 

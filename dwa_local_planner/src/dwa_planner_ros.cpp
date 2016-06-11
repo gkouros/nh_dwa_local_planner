@@ -35,6 +35,10 @@
 * Author: Eitan Marder-Eppstein
 *********************************************************************/
 
+/*
+ * Modified by George Kouros
+ */
+
 #include <dwa_local_planner/dwa_planner_ros.h>
 #include <Eigen/Core>
 #include <cmath>

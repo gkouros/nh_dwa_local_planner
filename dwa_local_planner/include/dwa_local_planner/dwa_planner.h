@@ -34,6 +34,11 @@
 *
 * Author: Eitan Marder-Eppstein
 *********************************************************************/
+
+/*
+ * Modified by George Kouros
+ */
+
 #ifndef DWA_LOCAL_PLANNER_DWA_PLANNER_H_
 #define DWA_LOCAL_PLANNER_DWA_PLANNER_H_
 
@@ -43,11 +48,11 @@
 
 #include <dwa_local_planner/DWAPlannerConfig.h>
 
-//for creating a local cost grid
+// for creating a local cost grid
 #include <base_local_planner/map_grid_visualizer.h>
 #include <pcl_ros/publisher.h>
 
-//for obstacle data access
+// for obstacle data access
 #include <costmap_2d/costmap_2d.h>
 
 #include <base_local_planner/trajectory.h>
@@ -55,10 +60,13 @@
 #include <base_local_planner/local_planner_util.h>
 #include <base_local_planner/simple_trajectory_generator.h>
 
+// cost functions
 #include <base_local_planner/oscillation_cost_function.h>
 #include <base_local_planner/map_grid_cost_function.h>
 #include <base_local_planner/obstacle_cost_function.h>
 #include <dwa_local_planner/fws_cost_function.h>
+#include <dwa_local_planner/goal_orientation_cost_function.h>
+
 #include <base_local_planner/simple_scored_sampling_planner.h>
 
 #include <nav_msgs/Path.h>
@@ -180,6 +188,7 @@ namespace dwa_local_planner
       base_local_planner::MapGridCostFunction goal_front_costs_;
       base_local_planner::MapGridCostFunction alignment_costs_;
       FWSCostFunction fws_costs_;
+      GoalOrientationCostFunction orientation_costs_;
 
       base_local_planner::SimpleScoredSamplingPlanner scored_sampling_planner_;
   };
