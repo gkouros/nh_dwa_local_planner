@@ -116,7 +116,7 @@ namespace dwa_local_planner {
     vsamples_[1] = vy_samp;
     vsamples_[2] = vth_samp;
 
-
+    cheat_factor_ = config.cheat_factor;
   }
 
   DWAPlanner::DWAPlanner(std::string name, base_local_planner::LocalPlannerUtil *planner_util) :
