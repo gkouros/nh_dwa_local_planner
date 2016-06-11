@@ -39,7 +39,7 @@
 #include <math.h>
 #include <ros/ros.h>
 
-namespace cost_functions
+namespace dwa_local_planner
 {
   double FWSCostFunction::scoreTrajectory(base_local_planner::Trajectory& traj)
   {

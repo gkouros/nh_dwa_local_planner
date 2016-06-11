@@ -40,7 +40,7 @@
 
 #include <base_local_planner/trajectory_cost_function.h>
 
-namespace cost_functions
+namespace dwa_local_planner
 {
 
   class FWSCostFunction : public base_local_planner::TrajectoryCostFunction
