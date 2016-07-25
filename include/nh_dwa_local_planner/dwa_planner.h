@@ -39,14 +39,14 @@
  * Modified by George Kouros
  */
 
-#ifndef DWA_LOCAL_PLANNER_DWA_PLANNER_H_
-#define DWA_LOCAL_PLANNER_DWA_PLANNER_H_
+#ifndef NH_DWA_LOCAL_PLANNER_DWA_PLANNER_H_
+#define NH_DWA_LOCAL_PLANNER_DWA_PLANNER_H_
 
 #include <vector>
 #include <Eigen/Core>
 
 
-#include <dwa_local_planner/DWAPlannerConfig.h>
+#include <nh_dwa_local_planner/DWAPlannerConfig.h>
 
 // for creating a local cost grid
 #include <base_local_planner/map_grid_visualizer.h>
@@ -64,14 +64,14 @@
 #include <base_local_planner/oscillation_cost_function.h>
 #include <base_local_planner/map_grid_cost_function.h>
 #include <base_local_planner/obstacle_cost_function.h>
-#include <dwa_local_planner/fws_cost_function.h>
-#include <dwa_local_planner/goal_orientation_cost_function.h>
+#include <nh_dwa_local_planner/fws_cost_function.h>
+#include <nh_dwa_local_planner/goal_orientation_cost_function.h>
 
 #include <base_local_planner/simple_scored_sampling_planner.h>
 
 #include <nav_msgs/Path.h>
 
-namespace dwa_local_planner
+namespace nh_dwa_local_planner
 {
   /**
    * @class DWAPlanner

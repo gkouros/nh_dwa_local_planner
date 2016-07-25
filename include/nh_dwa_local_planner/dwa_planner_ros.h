@@ -39,8 +39,8 @@
  * Modified by George Kouros
  */
 
-#ifndef DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
-#define DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
+#ifndef NH_DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
+#define NH_DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
 
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
@@ -48,7 +48,7 @@
 #include <tf/transform_listener.h>
 
 #include <dynamic_reconfigure/server.h>
-#include <dwa_local_planner/DWAPlannerConfig.h>
+#include <nh_dwa_local_planner/DWAPlannerConfig.h>
 
 #include <angles/angles.h>
 
@@ -59,9 +59,9 @@
 
 #include <base_local_planner/odometry_helper_ros.h>
 
-#include <dwa_local_planner/dwa_planner.h>
+#include <nh_dwa_local_planner/dwa_planner.h>
 
-namespace dwa_local_planner
+namespace nh_dwa_local_planner
 {
   /**
    * @class DWAPlannerROS
@@ -148,7 +148,7 @@ namespace dwa_local_planner
       costmap_2d::Costmap2DROS* costmap_ros_;
 
       dynamic_reconfigure::Server<DWAPlannerConfig> *dsrv_;
-      dwa_local_planner::DWAPlannerConfig default_config_;
+      nh_dwa_local_planner::DWAPlannerConfig default_config_;
       bool setup_;
 
       tf::Stamped<tf::Pose> current_pose_;
@@ -158,5 +158,5 @@ namespace dwa_local_planner
       base_local_planner::OdometryHelperRos odom_helper_;
       std::string odom_topic_;
   };
-}  // namespace dwa_local_planner
-#endif  // DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_
+}  // namespace nh_dwa_local_planner
+#endif  // NH_DWA_LOCAL_PLANNER_DWA_PLANNER_ROS_H_

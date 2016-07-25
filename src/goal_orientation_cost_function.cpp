@@ -35,11 +35,11 @@
 * author:  George Kouros
 *********************************************************************/
 
-#include "dwa_local_planner/goal_orientation_cost_function.h"
+#include "nh_dwa_local_planner/goal_orientation_cost_function.h"
 #include <math.h>
 #include <tf/tf.h>
 
-namespace dwa_local_planner
+namespace nh_dwa_local_planner
 {
 
   double GoalOrientationCostFunction::scoreTrajectory(base_local_planner::Trajectory& traj)
@@ -100,4 +100,4 @@ namespace dwa_local_planner
     activation_factor_ = activation_factor;
   }
 
-}  // namespace dwa_local_planner
+}  // namespace nh_dwa_local_planner

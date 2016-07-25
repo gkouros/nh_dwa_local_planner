@@ -35,11 +35,11 @@
 * author:  George Kouros
 *********************************************************************/
 
-#include "dwa_local_planner/fws_cost_function.h"
+#include "nh_dwa_local_planner/fws_cost_function.h"
 #include <math.h>
 #include <ros/ros.h>
 
-namespace dwa_local_planner
+namespace nh_dwa_local_planner
 {
 
   double FWSCostFunction::scoreTrajectory(base_local_planner::Trajectory& traj)
@@ -57,4 +57,4 @@ namespace dwa_local_planner
     }
   }
 
-}  // namespace dwa_local_planner
+}  // namespace nh_dwa_local_planner

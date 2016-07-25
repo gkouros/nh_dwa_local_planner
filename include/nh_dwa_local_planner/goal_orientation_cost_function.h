@@ -35,36 +35,35 @@
 * author:  George Kouros
 *********************************************************************/
 
-#ifndef DWA_LOCAL_PLANNER_FWS_COST_FUNCTION_H
-#define DWA_LOCAL_PLANNER_FWS_COST_FUNCTION_H
+#ifndef NH_DWA_LOCAL_PLANNER_GOAL_ORIENTATION_COST_FUNCTION_H
+#define NH_DWA_LOCAL_PLANNER_GOAL_ORIENTATION_COST_FUNCTION_H
 
 #include <base_local_planner/trajectory_cost_function.h>
+#include <geometry_msgs/PoseStamped.h>
 
-namespace dwa_local_planner
+namespace nh_dwa_local_planner
 {
 
-  class FWSCostFunction : public base_local_planner::TrajectoryCostFunction
+  class GoalOrientationCostFunction : public base_local_planner::TrajectoryCostFunction
   {
     public:
 
       /**
        * @brief Constructor
-       * @param r_min: minimum turning radius of the robot
-       * @param b_max: maximum diagonal motion angle
        */
-      FWSCostFunction(double r_min, double b_max) : r_min_(r_min), b_max_(b_max)
-      {
-      }
+      GoalOrientationCostFunction(double distance_scale,
+        double orientation_scale, double activation_factor):
+          distance_scale_(distance_scale),
+          orientation_scale_(orientation_scale),
+          activation_factor_(activation_factor) {}
 
       /**
        * @brief Destructor
        */
-      ~FWSCostFunction()
-      {
-      }
+      ~GoalOrientationCostFunction(){}
 
       /**
-       * @brief Punishes inadmissible trajectories based on FWS constraints
+       * @brief Score trajectories based on final orientation correction
        * @param traj: The trajectory to be evaluated
        */
       double scoreTrajectory(base_local_planner::Trajectory& traj);
@@ -72,26 +71,46 @@ namespace dwa_local_planner
       /**
        * @brief Used to update context values (not used, just returns true)
        */
-      bool prepare() {return true;}
+      bool prepare();
 
       /**
-       * @brief Set minimum turning radius
+       * @brief Set target pose
+       * @param goal_pose: The goal pose
        */
-      void setRMin(double r_min) {r_min_ = r_min;}
+      void setTargetPoses(geometry_msgs::PoseStamped goal_pose);
 
       /**
-       * @brief Set maximum diagonal motion angle
+       * @brief Set distance scale
+       * @param distance_scale: The distance scale
        */
-      void setBMax(double b_max) {b_max_ = b_max;}
+      void setDistanceScale(double distance_scale);
+
+      /**
+       * @brief Set orientation scale
+       * @param orientation_scale: the orientation scale
+       */
+      void setOrientationScale(double orientation_scale);
+
+      /**
+       * @brief Set activation_factor
+       * @param activation_factor: The xy goal tolerance
+       */
+      void setActivationFactor(double activation_factor);
 
     private:
-      //!< minimum turning radius of the robot
-      double r_min_;
+      //!< goal pose
+      geometry_msgs::PoseStamped goal_pose_;
 
-      //!< maximum diagonal motion angle
-      double b_max_;
+      //!< distance scale for cost function
+      double distance_scale_;
+
+      //!< orientation scale for cost function
+      double orientation_scale_;
+
+      //!< xy goal tolerance
+      double activation_factor_;
   };
 
-}  // namespace dwa_local_planner
+}  // namespace nh_dwa_local_planner
 
-#endif  // DWA_LOCAL_PLANNER_FWS_COST_FUNCTION_H
+#endif  // NH_DWA_LOCAL_PLANNER_GOAL_ORIENTATION_COST_FUNCTION_H

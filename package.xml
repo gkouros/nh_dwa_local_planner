@@ -1,5 +1,5 @@
 <package>
-    <name>dwa_local_planner</name>
+    <name>nh_dwa_local_planner</name>
     <version>1.12.10</version>
     <description>
 

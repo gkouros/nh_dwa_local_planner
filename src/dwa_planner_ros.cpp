@@ -39,7 +39,7 @@
  * Modified by George Kouros
  */
 
-#include <dwa_local_planner/dwa_planner_ros.h>
+#include <nh_dwa_local_planner/dwa_planner_ros.h>
 #include <Eigen/Core>
 #include <cmath>
 
@@ -51,10 +51,10 @@
 #include <nav_msgs/Path.h>
 
 //register this planner as a BaseLocalPlanner plugin
-PLUGINLIB_EXPORT_CLASS(dwa_local_planner::DWAPlannerROS,
+PLUGINLIB_EXPORT_CLASS(nh_dwa_local_planner::DWAPlannerROS,
   nav_core::BaseLocalPlanner)
 
-namespace dwa_local_planner
+namespace nh_dwa_local_planner
 {
 
   void DWAPlannerROS::reconfigureCB(DWAPlannerConfig &config, uint32_t level)

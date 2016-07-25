@@ -1,8 +1,12 @@
 # nh_dwa_local_planner
-Contains a modified Dynamic Window Approach(DWA) local planner for car like and
-4WS robots.  
+Contains a modified [Dynamic Window Approach(DWA) local planner](http://wiki.ros.org/dwa_local_planner)
+for car like and 4WS robots.  
+For best results, combine it with the sbpl_lattice_planner global
+planner.  
+    
+<br/>
 
-#### Changes:
+#### Modifications:
 Two new cost functions were added:
 - **fws_cost_function** allows only nonholonomic trajectories for car  
 like robots, as well as parallel motions(crab steering) for 4WS robots, if  

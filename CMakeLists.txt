@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(dwa_local_planner)
+project(nh_dwa_local_planner)
 
 find_package(catkin REQUIRED
         COMPONENTS
@@ -34,7 +34,7 @@ generate_dynamic_reconfigure_options(
 
 catkin_package(
     INCLUDE_DIRS include
-    LIBRARIES dwa_local_planner
+    LIBRARIES ${PROJECT_NAME}
     CATKIN_DEPENDS
         dynamic_reconfigure
         pluginlib
@@ -43,16 +43,16 @@ catkin_package(
 
 
 
-add_library(dwa_local_planner
+add_library(${PROJECT_NAME}
   src/fws_cost_function.cpp
   src/goal_orientation_cost_function.cpp
   src/dwa_planner.cpp
   src/dwa_planner_ros.cpp)
-target_link_libraries(dwa_local_planner ${catkin_LIBRARIES})
-add_dependencies(dwa_local_planner dwa_local_planner_gencfg)
-add_dependencies(dwa_local_planner nav_msgs_gencpp)
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME} nav_msgs_gencpp)
 
-install(TARGETS dwa_local_planner
+install(TARGETS ${PROJECT_NAME}
        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
        )
