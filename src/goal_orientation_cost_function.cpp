@@ -63,7 +63,7 @@ namespace nh_dwa_local_planner
     double ng_dth = fabs(nth - gth);  // new orientation error
 
     double score =
-      (1 / (activation_factor_ * cg_dist + 1))
+      (cg_dist > 2 * xy_goal_tolerance_)
       * (distance_scale_ * ng_dist + orientation_scale_ * (ng_dth));
 
     return (score > 0) ? score : 0;
@@ -95,9 +95,9 @@ namespace nh_dwa_local_planner
   }
 
 
-  void GoalOrientationCostFunction::setActivationFactor(double activation_factor)
+  void GoalOrientationCostFunction::setXYGoalTolerance(double xy_goal_tolerance)
   {
-    activation_factor_ = activation_factor;
+    xy_goal_tolerance_ = xy_goal_tolerance;
   }
 
 }  // namespace nh_dwa_local_planner

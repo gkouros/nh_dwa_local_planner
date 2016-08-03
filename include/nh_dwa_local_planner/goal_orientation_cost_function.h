@@ -52,10 +52,10 @@ namespace nh_dwa_local_planner
        * @brief Constructor
        */
       GoalOrientationCostFunction(double distance_scale,
-        double orientation_scale, double activation_factor):
+        double orientation_scale, double xy_goal_tolerance):
           distance_scale_(distance_scale),
           orientation_scale_(orientation_scale),
-          activation_factor_(activation_factor) {}
+          xy_goal_tolerance_(xy_goal_tolerance) {}
 
       /**
        * @brief Destructor
@@ -92,10 +92,10 @@ namespace nh_dwa_local_planner
       void setOrientationScale(double orientation_scale);
 
       /**
-       * @brief Set activation_factor
-       * @param activation_factor: The xy goal tolerance
+       * @brief Set xy_goal_tolerance
+       * @param xy_goal_tolerance: The xy goal tolerance
        */
-      void setActivationFactor(double activation_factor);
+      void setXYGoalTolerance(double xy_goal_tolerance);
 
     private:
       //!< goal pose
@@ -108,7 +108,7 @@ namespace nh_dwa_local_planner
       double orientation_scale_;
 
       //!< xy goal tolerance
-      double activation_factor_;
+      double xy_goal_tolerance_;
   };
 
 }  // namespace nh_dwa_local_planner

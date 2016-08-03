@@ -99,7 +99,7 @@ namespace nh_dwa_local_planner
 
     orientation_costs_.setDistanceScale(config.distance_scale);
     orientation_costs_.setOrientationScale(config.orientation_scale);
-    orientation_costs_.setActivationFactor(config.activation_factor);
+    orientation_costs_.setXYGoalTolerance(config.xy_goal_tolerance);
 
     int vx_samp, vy_samp, vth_samp;
     vx_samp = config.vx_samples;
