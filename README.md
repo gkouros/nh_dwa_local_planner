@@ -1,8 +1,6 @@
 # nh_dwa_local_planner
 Contains a modified [Dynamic Window Approach(DWA) local planner](http://wiki.ros.org/dwa_local_planner)
-for car like and 4WS robots.  
-For best results, combine it with the sbpl_lattice_planner global
-planner.  
+for car like and 4WS robots. For best results, combine it with the sbpl_lattice_planner global planner.  
     
 <br/>
 
